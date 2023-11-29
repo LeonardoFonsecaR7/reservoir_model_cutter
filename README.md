@@ -12,13 +12,13 @@ The Reservoir Model Cutter is a tool designed to extract a specific portion of a
 
 - **Reference Cell Definition:** Define the reference cell that serves as the starting point for the extraction.
 
-- **X and Y Values:** Specify the X and Y values of the cells to cut, creating a customized subset of the original model.
-
 ## Getting Started
 
 ### Prerequisites
 
 - Ensure you have the CMG software-generated numerical reservoir model.
+- Ensure the files to be cut are saved as INCLUDE files (".inc") containing only the values of the grid property, without any keywords.
+- Place the files to be cut in the same folder as the Reservoir Model Cutter files. 
 
 ### Installation
 
