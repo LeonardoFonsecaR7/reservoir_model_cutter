@@ -1,24 +1,62 @@
 import os
 import sys
-import numpy as np
+import argparse
 import logging.config
 from functions import grid_tools
 from functions.the_cutter import cutter
 from functions.save_inc_file import save_as_inc_file_reshaped
 
 
-def main(
-    folder_dir: str = None,
-    og_dimentions: tuple = (),
-    new_dimentions: tuple = (),
-    ref_corner: tuple = (),
-):
-    og_x, og_y, og_z = og_dimentions
-    new_x, new_y, new_z = new_dimentions
+def parse_arguments():
+    parser = argparse.ArgumentParser(description="Reservoir Model Cutter")
+
+    parser.add_argument(
+        "--folder_dir",
+        type=str,
+        required=True,
+        help="Path to the directory containing input files.",
+    )
+
+    parser.add_argument(
+        "--og_dimensions",
+        type=int,
+        nargs=3,
+        required=True,
+        help="Original dimensions of the reservoir model (x, y, z).",
+    )
+
+    parser.add_argument(
+        "--new_dimensions",
+        type=int,
+        nargs=3,
+        required=True,
+        help="New dimensions for the extracted model (x, y, z).",
+    )
+
+    parser.add_argument(
+        "--ref_corner",
+        type=int,
+        nargs=3,
+        required=True,
+        help="Reference corner coordinates for the extraction.",
+    )
+
+    return parser.parse_args()
+
+
+def main():
+    args = parse_arguments()
+    folder_dir = args.folder_dir
+    og_dimensions = tuple(args.og_dimensions)
+    new_dimensions = tuple(args.new_dimensions)
+    ref_corner = tuple(args.ref_corner)
+
+    og_x, og_y, og_z = og_dimensions
+    new_x, new_y, new_z = new_dimensions
 
     logging.info("Start Reservoir Model Cutter")
-    logging.info(f"Original dimentions: {og_dimentions}")
-    logging.info(f"New dimentions: {new_dimentions}")
+    logging.info(f"Original dimentions: {og_dimensions}")
+    logging.info(f"New dimentions: {new_dimensions}")
     logging.info(f"Cell reference to cut: {ref_corner}")
 
     files = os.listdir(folder_dir)
@@ -55,21 +93,23 @@ def main(
                 new_grid_dataset.append(
                     cutter(
                         grid,
-                        og_dimentions,
-                        new_dimentions,
+                        og_dimensions,
+                        new_dimensions,
                         ref_corner,
                     )
                 )
             new_data = grid_tools.group(new_grid_dataset, new_x, new_y, new_z)
 
         else:
-            new_data = cutter(data, og_dimentions, new_dimentions, ref_corner)
+            new_data = cutter(data, og_dimensions, new_dimensions, ref_corner)
 
         save_as_inc_file_reshaped(
             new_data, f"output/{new_x}_{new_y}_{new_z}/{filename}", elements_per_row=20
         )
 
-        logging.info(f"Save cutter file in {os.getcwd()}/output/{new_x}_{new_y}_{new_z} directory \n")
+        logging.info(
+            f"Save cutter file in {os.getcwd()}/output/{new_x}_{new_y}_{new_z} directory \n"
+        )
     logging.info("Reservoir model cutter finish")
 
 
@@ -77,8 +117,8 @@ if __name__ in "__main__":
     logging.config.fileConfig("logging_config.ini")
 
     main(
-        folder_dir="/Users/leonardofonseca/Documents/work/master/codes/reservoir_model_cutter/src/input",
-        og_dimentions=(46, 69, 30),
-        new_dimentions=(17, 10, 11),
-        ref_corner=(0, 0, 0),
+        # folder_dir="/Users/leonardofonseca/Documents/work/master/codes/reservoir_model_cutter/src/input",
+        # og_dimentions=(46, 69, 30),
+        # new_dimentions=(17, 10, 11),
+        # ref_corner=(0, 0, 0),
     )
