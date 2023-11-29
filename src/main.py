@@ -115,10 +115,4 @@ def main():
 
 if __name__ in "__main__":
     logging.config.fileConfig("logging_config.ini")
-
-    main(
-        # folder_dir="/Users/leonardofonseca/Documents/work/master/codes/reservoir_model_cutter/src/input",
-        # og_dimentions=(46, 69, 30),
-        # new_dimentions=(17, 10, 11),
-        # ref_corner=(0, 0, 0),
-    )
+    main()
