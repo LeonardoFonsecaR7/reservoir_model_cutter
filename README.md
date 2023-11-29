@@ -51,11 +51,6 @@ The Reservoir Model Cutter is a tool designed to extract a specific portion of a
 - **new_dimensions**: New dimensions for the extracted model (x, y, z).
 - **ref_corner**: Reference corner coordinates for the extraction.
 
-## Example
-
-```bash
-python main.py --folder_dir /path/to/input --og_dimensions 46 69 30 --new_dimensions 17 10 11 --ref_corner 0 0 0
-```
 
 ## Contributing
 
