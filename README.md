@@ -55,3 +55,17 @@ The Reservoir Model Cutter is a tool designed to extract a specific portion of a
 
 ```bash
 python main.py --folder_dir /path/to/input --og_dimensions 46 69 30 --new_dimensions 17 10 11 --ref_corner 0 0 0
+```
+
+## Contributing
+
+If you would like to contribute to the development of this tool, please follow our [contribution guidelines](CONTRIBUTING.md).
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgments
+
+- The Reservoir Model Cutter is inspired by the need for a convenient tool to extract specific portions of numerical reservoir models from CMG software.
+- Special thanks to the open-source community for their contributions and support.
